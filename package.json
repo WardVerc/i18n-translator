@@ -2,6 +2,7 @@
   "type": "module",
   "scripts": {
     "translate": "node ./translate.js",
+    "translate-v2": "node ./translate-v2.js",
     "export": "node ./export-translations-to-excel.js",
     "import": "node ./import-excel-to-jsons.js"
   },

@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  libretranslate:
+    image: libretranslate/libretranslate:latest
+    container_name: libretranslate
+    # "no" instead of "unless-stopped" — this only needs to run while you're
+    # actively using sync-i18n, not persist across machine reboots
+    restart: "no"
+    ports:
+      - "5000:5000"
+    environment:
+      # Only load the languages you actually need — drastically reduces
+      # startup time and disk/RAM usage vs. loading all ~30+ languages.
+      - LT_LOAD_ONLY=en,nl,fr,de
+      # Tells LibreTranslate to download/update language models automatically
+      - LT_UPDATE_MODELS=true
+      # The volumes saves models and keeps database,
+      # else it would download models again between restarts
+    volumes:
+      - libretranslate-data:/home/libretranslate/.local
+      - libretranslate-db:/app/db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/languages"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+volumes:
+  libretranslate-data:
+  libretranslate-db:

@@ -2,6 +2,22 @@
 
 A small toolkit to manage JSON translation files. Designed to auto-translate, export, validate and import translations in multiple languages (EN -> FR, NL) with DeepL API.
 
+## NEW - translate-v2.js
+
+translate-v2 was added and a LibreTranslate docker compose file.
+Just start a docker container with LibreTranslate with:
+
+```bash
+docker compose up -d
+```
+
+Then edit the paths in translate-v2.js to your locales files and
+
+```bash
+
+npm run translate-v2
+```
+
 ## Quick Start
 
 Create a `.env` file with your DeepL API key:
